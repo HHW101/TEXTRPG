@@ -16,6 +16,7 @@ namespace TEXTRPG
         //인벤토리 구현
         public Bag bag;
         public Inven iv;
+        int wn=-1,an=-1;
         //생성자
         public Player()
         {
@@ -35,6 +36,7 @@ namespace TEXTRPG
         public void setPItems(List<string> itms)
         {
             bag.setData(itms);
+            bag.FindEqi(wn, an, iv);
         }
         public void levelup()
         {
@@ -48,7 +50,7 @@ namespace TEXTRPG
         {
             hp -= x;
             if (hp <= 0)
-                GameLogic.isGameOver = true;
+                GameManager.isGameOver = true;
         }
         public string playerdata()
         {
@@ -67,6 +69,10 @@ namespace TEXTRPG
             sb.Append(def);
             sb.Append(",");
             sb.Append(gold);
+            sb.Append(",");
+            sb.Append(iv.getweaponID());
+            sb.Append(",");
+            sb.Append(iv.getArmorID());
             data = sb.ToString();
              
             return data;
@@ -74,7 +80,7 @@ namespace TEXTRPG
         public void LoadPlayer(string data)
         {
             string[] datas= data.Split(new char[] { ',' });
-            if (datas.Length <8)
+            if (datas.Length <7)
             {
                 Console.WriteLine("FAIL LOAD");
                 return;
@@ -86,12 +92,17 @@ namespace TEXTRPG
             atk = float.Parse(datas[4]);
             def = float.Parse(datas[5]);
             gold = int.Parse(datas[6]);
+            wn = int.Parse(datas[7]);
+            an = int.Parse(datas[8]);
+
         }
 
         //스테이터스 보여주기
         public void ShowStatus()
         {
             float[] sum = iv.sumAdd();
+            addAtk=sum[0];
+            addDef =sum[1];
             Console.WriteLine($"lv. {lvl:D2}");
             Console.WriteLine($"{name} ({job.ToString()})");
             Console.WriteLine($"HP: {hp:F2}");

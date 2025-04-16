@@ -10,6 +10,7 @@ namespace TEXTRPG
     {
        
         public HashSet<Item> eItems;
+        string[] info;
         //생성자
         public Shop()
         {
@@ -17,7 +18,47 @@ namespace TEXTRPG
             eItems = new HashSet<Item>();
 
         }
-        
+        public string eData()
+        {
+            string data= "";
+           
+            foreach (Item item in eItems)
+            {
+                data += item.num;
+                data+=",";
+            }
+            data=data.TrimEnd(',');
+            return data;
+       
+        }
+      
+        public void setData(string eN,List<string> arr)
+        {
+            info = eN.Split(',');
+            foreach (string item in arr)
+            {
+                string[] itemInfo = item.Split(',');
+                Item it=null;
+                if (int.Parse(itemInfo[0]) == 1)
+                {
+                    it = new Weapon(int.Parse(itemInfo[1]), itemInfo[2], itemInfo[3], int.Parse(itemInfo[4]), int.Parse(itemInfo[5]));
+                    setItem(it);
+                }
+                else if (int.Parse(itemInfo[0]) == 2)
+                {
+                    it = new Armor(int.Parse(itemInfo[1]), itemInfo[2], itemInfo[3], int.Parse(itemInfo[4]), int.Parse(itemInfo[5]));
+                    setItem(it);
+                }
+
+                foreach(string i in info)
+                {
+                    if (int.Parse(itemInfo[1]) == int.Parse(i))
+                        eItems.Add(it);
+                }
+
+            }
+        }
+
         public void ShowInven()
         {
             for (int i = 0; i < items.Count(); i++)
@@ -69,16 +110,26 @@ namespace TEXTRPG
             eItems.Add(items[i]);
             return items[i];
         }
-  
+        
         public int buy(Item equip)
         {
             if (equip == null)
                 return 0;
-            if (eItems.Contains(equip))
-                eItems.Remove(equip);
+            Item temp = IsBuyed(equip.num);
+            if (temp!=null)
+                eItems.Remove(temp);
             else
                 setItem(equip);
             return equip.gold * 85 / 100;
+        }
+        public Item IsBuyed(int i)
+        {
+            foreach (Item item in eItems)
+            {
+                if (item.num==i)
+                    return item;
+            }
+            return null;
         }
 
     }

@@ -9,11 +9,11 @@ namespace TEXTRPG
 
         static void Main(String[] args)
         {
-            GameLogic gm = new GameLogic();
+            GameManager gm = new GameManager();
            
             gm.init();
             int temp = 1;
-            while (!GameLogic.isGameEnd)
+            while (!GameManager.isGameEnd)
             {
                 gm.village();
                 int a = -1;
@@ -51,13 +51,17 @@ namespace TEXTRPG
 
                         break;
                     case 0:
-                        GameLogic.isGameEnd = true;
+                        GameManager.isGameEnd = true;
                         break;
                 }
+                
 
             }
-            if(GameLogic.isGameOver)
+
+            if(GameManager.isGameOver)
                 gm.gameEnd();
+            else
+                gm.save();
 
 
         }

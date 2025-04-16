@@ -17,12 +17,12 @@ namespace TEXTRPG
                 string[] itemInfo = item.Split(',');
                 if (int.Parse(itemInfo[0]) == 1)
                 {
-
-                    setItem(new Weapon(itemInfo[1], itemInfo[2], int.Parse(itemInfo[3]), int.Parse(itemInfo[4])));
+                    
+                    setItem(new Weapon(int.Parse(itemInfo[1]), itemInfo[2], itemInfo[3], int.Parse(itemInfo[4]), int.Parse(itemInfo[5])));
                 }
                 if (int.Parse(itemInfo[0]) == 2)
                 {
-                    setItem(new Armor(itemInfo[1], itemInfo[2], int.Parse(itemInfo[3]), int.Parse(itemInfo[4])));
+                    setItem(new Armor(int.Parse(itemInfo[1]),itemInfo[2], itemInfo[3], int.Parse(itemInfo[4]), int.Parse(itemInfo[5])));
                 }
 
             }

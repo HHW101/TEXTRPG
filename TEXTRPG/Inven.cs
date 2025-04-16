@@ -14,9 +14,17 @@ namespace TEXTRPG
         {
             return (weapon == equip || armor == equip);
         }
-        Item getweapon(int i)
+        public int getweaponID()
         {
-            return weapon;
+            if (weapon == null)
+                return -1;
+            return weapon.num;
+        }
+        public int getArmorID()
+        {
+            if (armor == null)
+                return -1;
+            return armor.num;
         }
         public float[] sumAdd()
         {

@@ -16,7 +16,10 @@ namespace TEXTRPG
         public float def { get; set; }
         public float hp { get; set; }
         public int gold { get; set; }
+       // public bool shop { get; set; }
+        public int num { get; set; }
         public string ItemData();
+
         public void ShowEquip();
      
 

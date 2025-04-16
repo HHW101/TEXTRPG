@@ -15,19 +15,19 @@ namespace TEXTRPG
         public float atk { get; set; }
         public float def { get; set; }
         public float hp { get; set; }
+
         public int gold { get; set; }
+        public int num { get; set; }
 
-        public Weapon()
-        {
-
-        }
+    
       
-        public Weapon(String nameG, String txtG,float atkG, int goldG)
+        public Weapon(int _num,String nameG, String txtG,float atkG, int goldG)
         {
             name = nameG;
             atk = atkG;
             txt = txtG;
             gold = goldG;
+            num = _num;
         }
         public void ShowEquip()
         {
@@ -37,12 +37,14 @@ namespace TEXTRPG
         {
             string data;
             StringBuilder sb = new StringBuilder();
-            sb.Append("0,");
+            sb.Append("2,");
+            sb.Append(num);
+            sb.Append(",");
             sb.Append(name);
             sb.Append(",");
             sb.Append(txt);
             sb.Append(',');
-            sb.Append(def);
+            sb.Append(atk);
             sb.Append(",");
             sb.Append(gold);
             data = sb.ToString();

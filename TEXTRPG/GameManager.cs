@@ -20,12 +20,12 @@ namespace TEXTRPG
         armor
 
     }
-    internal class GameLogic
+    internal class GameManager
     {
         static List<string> shopitems =
-        new List<string> { "1,Iron Sword,sword,8,800", "1,fire Sword,powerful sword,8,800" };
+        new List<string> { "1,0,Iron Sword,sword,8,800", "1,1,fire Sword,powerful sword,12,800" };
         static List<string> pItems =
-        new List<string> { "2,Iron armor,armor,8,1000", "1,wood Sword,week sword,12,400" };
+        new List<string> { "2,2,Iron armor,armor,8,1000", "1,3,wood Sword,week sword,4,400" };
 
         public static bool isGameEnd = false;
         public static bool isGameOver = false;
@@ -44,6 +44,13 @@ namespace TEXTRPG
             player.ShowStatus();
             Console.WriteLine("PRESS ANY KEY TO EXIT");
             Console.ReadLine();
+
+           
+        }
+        public void save()
+        {
+            Data.Instance().SaveData(player.playerdata(), player.bagData(), shop.getData(),shop.eData());
+
         }
         //시작
         public void init()
@@ -70,6 +77,7 @@ namespace TEXTRPG
            
 
         }
+       
         //새로 시작
         public void NewGame()
         {
@@ -108,14 +116,35 @@ namespace TEXTRPG
 
            
             shop.setData(shopitems);
-            Data.Instance().SaveData(player.playerdata(), player.bagData(), shopitems);
+            Data.Instance().SaveData(player.playerdata(), player.bagData(), shopitems,null);
 
 
         }
         //로드
         public void LoadGame()
         {
+            List<string> data = Data.Instance().LoadData();
+            if (data == null)
+            {
+                Console.WriteLine("Save file not found");
+                NewGame();
+                return;
+            }
+            //플레이어 정보 불러 온 후 데이터에서 삭제
+            player.LoadPlayer(data[0]);
+            data.Remove(data[0]);
+            int index = data.IndexOf(Data.key);
+         
+            if(index != -1)
+            {
+                player.setPItems(data.GetRange(0,index));
+                shop.setData(data[index+1],data.GetRange(index+2,data.Count-(index+2)));
+              
+                return;
+            }
+            player.setPItems(data);
 
+            
         }
         //스텟 모드
         public void showStat()

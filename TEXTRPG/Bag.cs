@@ -38,7 +38,17 @@ namespace TEXTRPG
 
         }
       
-
+        public void FindEqi(int w,int m,Inven iv)
+        {
+            foreach (Item item in items) {
+                if (item.num == w){
+                    iv.equipS(item);
+                }
+                if (item.num == m) { 
+                    iv.equipS(item);
+                }
+            }
+        }
         public void ShowInven(Inven iv)
         {
             for (int i = 0; i < items.Count(); i++)

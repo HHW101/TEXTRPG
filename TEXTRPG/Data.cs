@@ -29,7 +29,7 @@ namespace TEXTRPG
             filePath = @"savefolder\save.txt";
             var directory = Path.GetDirectoryName(filePath);
             Directory.CreateDirectory(directory);
-            File.WriteAllText(filePath, "안녕하세요");
+          //  File.WriteAllText(filePath, "안녕하세요");
         }
        public List<string> LoadData()
         {
@@ -58,19 +58,22 @@ namespace TEXTRPG
             
          
         }
-     
-        public void SaveData(string player, List< string> items,List<string> shops)
+
+        public void SaveData(string player, List<string> items, List<string> shops, string edata)
         {
             using(StreamWriter sw = new StreamWriter(filePath))
                 {
                 sw.WriteLine(key);
                 sw.WriteLine(player);
-                foreach (string item in items) { 
-                sw.WriteLine(item);
+               
+                foreach (string item in items) {
+              
+                    sw.WriteLine(item);
                 }
                 sw.WriteLine(key);
+                sw.WriteLine(edata);
                 foreach (string shop in shops)
-                {
+                { 
                     sw.WriteLine(shop);
                 }
 

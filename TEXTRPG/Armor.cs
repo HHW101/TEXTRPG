@@ -14,14 +14,16 @@ namespace TEXTRPG
         public float def { get; set; }
         public float hp { get; set; }
         public int gold { get; set; }
+        public int num { get; set; }
 
         public Armor()
         {
 
 
         }
-        public Armor(String nameG, String txtG, float defG, int goldG)
+        public Armor(int _num,String nameG, String txtG, float defG, int goldG)
         {
+            num = _num;
             name = nameG;
             def = defG;
             txt = txtG;
@@ -38,7 +40,9 @@ namespace TEXTRPG
         {
             string data;
             StringBuilder sb = new StringBuilder();
-            sb.Append("0,");
+            sb.Append("1,");
+            sb.Append(num);
+            sb.Append(",");
             sb.Append(name);
             sb.Append(",");
             sb.Append(txt);
